@@ -3,6 +3,7 @@
 Sits between the routers and the repository. Raises domain exceptions
 (never HTTP exceptions) so it stays framework-agnostic.
 """
+
 from __future__ import annotations
 
 from app.core.exceptions import EmailAlreadyExistsError, UserNotFoundError

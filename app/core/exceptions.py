@@ -5,6 +5,7 @@ into consistent HTTP error responses via the handler registered in
 ``app.main``. Each error carries an HTTP ``status_code``, a machine-readable
 ``code``, and a human-readable message.
 """
+
 from __future__ import annotations
 
 from typing import Any

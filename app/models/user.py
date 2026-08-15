@@ -4,6 +4,7 @@ This is the persistence representation the repository/service layers work
 with. It is kept separate from the API schemas so the transport contract can
 evolve independently from the stored model.
 """
+
 from __future__ import annotations
 
 from sqlalchemy.orm import Mapped, mapped_column

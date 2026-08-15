@@ -4,6 +4,7 @@ Settings are plain values with sane defaults and can be overridden via
 environment variables (or a local .env file). Kept dependency-light (no
 pydantic-settings) on purpose.
 """
+
 from __future__ import annotations
 
 import os

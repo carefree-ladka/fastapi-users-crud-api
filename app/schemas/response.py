@@ -10,6 +10,7 @@ Error::
 
     {"success": false, "message": "...", "error": {"code": "...", "details": ...}}
 """
+
 from __future__ import annotations
 
 from typing import Any, Generic, TypeVar

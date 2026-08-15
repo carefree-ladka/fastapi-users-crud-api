@@ -4,6 +4,7 @@ Encapsulates all data access for users behind a small method surface. Swapping
 the underlying database (SQLite -> Postgres, etc.) only requires changing the
 connection string; this class stays the same.
 """
+
 from __future__ import annotations
 
 from sqlalchemy import select
@@ -15,16 +16,72 @@ from app.models.user import User
 def seed_users() -> list[User]:
     """Return the initial set of users used to populate an empty database."""
     return [
-        User(name="Aarav Sharma", email="aarav.sharma@example.com", age=28, is_active=True, role="user"),
-        User(name="Priya Singh", email="priya.singh@example.com", age=25, is_active=True, role="admin"),
-        User(name="Rahul Verma", email="rahul.verma@example.com", age=32, is_active=False, role="user"),
-        User(name="Ananya Gupta", email="ananya.gupta@example.com", age=27, is_active=True, role="moderator"),
-        User(name="Vikram Patel", email="vikram.patel@example.com", age=35, is_active=True, role="user"),
-        User(name="Neha Kapoor", email="neha.kapoor@example.com", age=24, is_active=False, role="user"),
-        User(name="Arjun Mehta", email="arjun.mehta@example.com", age=30, is_active=True, role="admin"),
-        User(name="Sneha Reddy", email="sneha.reddy@example.com", age=29, is_active=True, role="user"),
-        User(name="Karan Malhotra", email="karan.malhotra@example.com", age=31, is_active=False, role="user"),
-        User(name="Ishita Joshi", email="ishita.joshi@example.com", age=26, is_active=True, role="moderator"),
+        User(
+            name="Aarav Sharma",
+            email="aarav.sharma@example.com",
+            age=28,
+            is_active=True,
+            role="user",
+        ),
+        User(
+            name="Priya Singh",
+            email="priya.singh@example.com",
+            age=25,
+            is_active=True,
+            role="admin",
+        ),
+        User(
+            name="Rahul Verma",
+            email="rahul.verma@example.com",
+            age=32,
+            is_active=False,
+            role="user",
+        ),
+        User(
+            name="Ananya Gupta",
+            email="ananya.gupta@example.com",
+            age=27,
+            is_active=True,
+            role="moderator",
+        ),
+        User(
+            name="Vikram Patel",
+            email="vikram.patel@example.com",
+            age=35,
+            is_active=True,
+            role="user",
+        ),
+        User(
+            name="Neha Kapoor",
+            email="neha.kapoor@example.com",
+            age=24,
+            is_active=False,
+            role="user",
+        ),
+        User(
+            name="Arjun Mehta",
+            email="arjun.mehta@example.com",
+            age=30,
+            is_active=True,
+            role="admin",
+        ),
+        User(
+            name="Sneha Reddy", email="sneha.reddy@example.com", age=29, is_active=True, role="user"
+        ),
+        User(
+            name="Karan Malhotra",
+            email="karan.malhotra@example.com",
+            age=31,
+            is_active=False,
+            role="user",
+        ),
+        User(
+            name="Ishita Joshi",
+            email="ishita.joshi@example.com",
+            age=26,
+            is_active=True,
+            role="moderator",
+        ),
     ]
 
 

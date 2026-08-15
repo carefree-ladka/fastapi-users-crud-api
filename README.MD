@@ -20,8 +20,12 @@ health-check endpoint.
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install dependencies
+# Install runtime dependencies
 pip install fastapi uvicorn python-dotenv "sqlalchemy>=2.0"
+
+# (Optional) install dev tools for the quality gates
+pip install -e ".[dev]"
+pre-commit install
 
 # Copy the example environment file and adjust as needed
 cp .env.example .env
@@ -123,6 +127,27 @@ Errors use a matching shape with an HTTP status and machine-readable `code`:
   }
 }
 ```
+
+## Quality gates
+
+The project uses the Python equivalents of ESLint/Prettier:
+
+- **Ruff** — linter and formatter (config in `pyproject.toml`).
+- **mypy** — strict static type checking.
+- **pre-commit** — runs all gates automatically on `git commit`.
+
+Run them manually:
+
+```bash
+ruff format app        # format (like Prettier)
+ruff check app         # lint (like ESLint); add --fix to autofix
+mypy                   # type-check the app package
+
+pre-commit run --all-files   # run every gate across the repo
+```
+
+Once `pre-commit install` has been run, these gates run on every commit and
+block the commit if anything fails.
 
 ## Project structure
 

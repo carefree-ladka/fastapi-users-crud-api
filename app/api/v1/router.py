@@ -2,6 +2,7 @@
 
 Mounted under the configured API prefix (default: /api/v1) in app.main.
 """
+
 from __future__ import annotations
 
 from fastapi import APIRouter

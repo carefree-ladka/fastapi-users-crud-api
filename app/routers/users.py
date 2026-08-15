@@ -4,6 +4,7 @@ Controllers only translate HTTP <-> service calls and wrap results in the
 standard response envelope. All business logic lives in UserService; error
 handling is done by the global exception handlers.
 """
+
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, status
@@ -17,7 +18,9 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.get("", response_model=APIResponse[list[UserOut]])
-def list_users(service: UserService = Depends(get_user_service)):
+def list_users(
+    service: UserService = Depends(get_user_service),
+) -> APIResponse[list[UserOut]]:
     users = service.list_users()
     return APIResponse(
         message=f"Retrieved {len(users)} user(s)",
@@ -26,7 +29,9 @@ def list_users(service: UserService = Depends(get_user_service)):
 
 
 @router.get("/{user_id}", response_model=APIResponse[UserOut])
-def get_user(user_id: int, service: UserService = Depends(get_user_service)):
+def get_user(
+    user_id: int, service: UserService = Depends(get_user_service)
+) -> APIResponse[UserOut]:
     user = service.get_user(user_id)
     return APIResponse(
         message=f"Retrieved user {user_id}",
@@ -38,7 +43,7 @@ def get_user(user_id: int, service: UserService = Depends(get_user_service)):
 def create_user(
     payload: UserCreate,
     service: UserService = Depends(get_user_service),
-):
+) -> APIResponse[UserOut]:
     user = service.create_user(payload)
     return APIResponse(
         message=f"User '{user.name}' created successfully",
@@ -51,7 +56,7 @@ def replace_user(
     user_id: int,
     payload: UserUpdate,
     service: UserService = Depends(get_user_service),
-):
+) -> APIResponse[UserOut]:
     user = service.replace_user(user_id, payload)
     return APIResponse(
         message=f"User {user_id} replaced successfully",
@@ -64,7 +69,7 @@ def patch_user(
     user_id: int,
     payload: UserUpdate,
     service: UserService = Depends(get_user_service),
-):
+) -> APIResponse[UserOut]:
     user = service.patch_user(user_id, payload)
     return APIResponse(
         message=f"User {user_id} updated successfully",
@@ -73,6 +78,6 @@ def patch_user(
 
 
 @router.delete("/{user_id}", response_model=MessageResponse)
-def delete_user(user_id: int, service: UserService = Depends(get_user_service)):
+def delete_user(user_id: int, service: UserService = Depends(get_user_service)) -> MessageResponse:
     service.delete_user(user_id)
     return MessageResponse(message=f"User {user_id} deleted successfully")

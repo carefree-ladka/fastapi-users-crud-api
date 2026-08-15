@@ -3,6 +3,7 @@
 FastAPI resolves these via ``Depends``. Each request gets its own database
 session, repository, and service instance.
 """
+
 from __future__ import annotations
 
 from fastapi import Depends

@@ -2,8 +2,10 @@
 
 Run with:  uvicorn app.main:app --reload
 """
+
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -18,7 +20,7 @@ from app.schemas.response import ErrorDetail, ErrorResponse
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     # Create tables and seed data on startup.
     init_db()
     yield
@@ -41,9 +43,7 @@ def register_exception_handlers(app: FastAPI) -> None:
         return _error_response(exc.status_code, exc.message, exc.code, exc.details)
 
     @app.exception_handler(RequestValidationError)
-    async def _handle_validation_error(
-        _: Request, exc: RequestValidationError
-    ) -> JSONResponse:
+    async def _handle_validation_error(_: Request, exc: RequestValidationError) -> JSONResponse:
         # Flatten Pydantic/FastAPI validation errors into a readable list.
         details = [
             {
@@ -52,16 +52,12 @@ def register_exception_handlers(app: FastAPI) -> None:
             }
             for err in exc.errors()
         ]
-        return _error_response(
-            422, "Request validation failed", "validation_error", details
-        )
+        return _error_response(422, "Request validation failed", "validation_error", details)
 
     @app.exception_handler(Exception)
     async def _handle_unexpected_error(_: Request, exc: Exception) -> JSONResponse:
         # Fallback: never leak internals; return a readable generic message.
-        return _error_response(
-            500, "An unexpected error occurred", "internal_server_error"
-        )
+        return _error_response(500, "An unexpected error occurred", "internal_server_error")
 
 
 def create_app() -> FastAPI:

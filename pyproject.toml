@@ -9,3 +9,46 @@ dependencies = [
     "python-dotenv",
     "sqlalchemy>=2.0"
 ]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.16",
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["app"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes, I: isort, UP: pyupgrade, B: bugbear,
+# C4: comprehensions, SIM: simplify.
+select = ["E", "W", "F", "I", "UP", "B", "C4", "SIM"]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI dependency-injection callables are meant to be used in defaults.
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Header",
+    "fastapi.Cookie",
+    "fastapi.Form",
+    "fastapi.File",
+    "fastapi.Security",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+files = ["app"]
+strict = true
+plugins = ["pydantic.mypy"]
+
+# The mock/test SQLite db and caches are not source.
+exclude = "(^|/)(\\.venv|build|dist)/"

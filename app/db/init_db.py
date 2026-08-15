@@ -3,6 +3,7 @@
 Creates tables and, if the users table is empty, inserts the seed data. Called
 once on application startup.
 """
+
 from __future__ import annotations
 
 from sqlalchemy import select

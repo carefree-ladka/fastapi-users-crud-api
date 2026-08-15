@@ -6,6 +6,7 @@ The application now lives in the ``app`` package. Prefer running:
 
 This re-export keeps ``uvicorn main:app`` working as well.
 """
+
 from app.main import app
 
 __all__ = ["app"]
