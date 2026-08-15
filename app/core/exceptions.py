@@ -43,3 +43,33 @@ class EmailAlreadyExistsError(AppError):
     def __init__(self, email: str) -> None:
         self.email = email
         super().__init__(f"A user with email '{email}' already exists")
+
+
+class AuthenticationError(AppError):
+    """Raised when credentials are missing or invalid (HTTP 401)."""
+
+    status_code = 401
+    code = "authentication_failed"
+
+    def __init__(self, message: str = "Not authenticated") -> None:
+        super().__init__(message)
+
+
+class PermissionDeniedError(AppError):
+    """Raised when an authenticated user lacks the required role (HTTP 403)."""
+
+    status_code = 403
+    code = "permission_denied"
+
+    def __init__(self, message: str = "You do not have permission to perform this action") -> None:
+        super().__init__(message)
+
+
+class CSRFError(AppError):
+    """Raised when a CSRF token is missing or does not match (HTTP 403)."""
+
+    status_code = 403
+    code = "csrf_failed"
+
+    def __init__(self, message: str = "CSRF token missing or invalid") -> None:
+        super().__init__(message)

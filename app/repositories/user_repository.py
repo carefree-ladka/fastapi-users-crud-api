@@ -100,8 +100,23 @@ class UserRepository:
     def get_by_email(self, email: str) -> User | None:
         return self._db.scalar(select(User).where(User.email == email))
 
-    def add(self, name: str, email: str, age: int, is_active: bool, role: str) -> User:
-        user = User(name=name, email=email, age=age, is_active=is_active, role=role)
+    def add(
+        self,
+        name: str,
+        email: str,
+        age: int,
+        is_active: bool,
+        role: str,
+        hashed_password: str = "",
+    ) -> User:
+        user = User(
+            name=name,
+            email=email,
+            age=age,
+            is_active=is_active,
+            role=role,
+            hashed_password=hashed_password,
+        )
         self._db.add(user)
         self._db.commit()
         self._db.refresh(user)
