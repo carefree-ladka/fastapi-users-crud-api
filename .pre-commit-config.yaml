@@ -22,8 +22,11 @@ repos:
         additional_dependencies:
           - fastapi
           - pydantic>=2
+          - pydantic[email]
           - sqlalchemy>=2.0
           - python-dotenv
+          - pyjwt>=2.8
+          - bcrypt>=4.1
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0

@@ -21,3 +21,5 @@ class User(Base):
     age: Mapped[int]
     is_active: Mapped[bool] = mapped_column(default=False)
     role: Mapped[str] = mapped_column(default="user")
+    # bcrypt hash of the user's password (never the plaintext).
+    hashed_password: Mapped[str] = mapped_column(default="")
